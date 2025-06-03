@@ -79,4 +79,15 @@ export async function getUserPath(userId: string, date: Date) {
 
   if (error) throw error;
   return data;
+}
+
+// 모든 murmur 조회
+export async function getMurmurs() {
+  const { data, error } = await supabase
+    .from('murmurs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
 } 

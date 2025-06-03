@@ -242,23 +242,25 @@ export default function Map() {
 
       <button
         onClick={handleImprint}
-        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors font-bold z-10"
+        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors font-bold z-10 text-lg md:text-base md:py-3"
+        aria-label="Leave your murmur at current location"
       >
         IMPRINT MY MURMUR
       </button>
 
       {locationError && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-700 px-4 py-2 rounded shadow z-10">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-800 px-4 py-3 rounded shadow z-10 text-base md:text-sm">
           {locationError}
         </div>
       )}
 
       {selectedPlace && (
         <div className="absolute bottom-20 left-4 right-4 bg-white p-4 rounded-lg shadow-lg z-10">
-          <h3 className="text-lg font-bold mb-2">{selectedPlace.name}</h3>
+          <h3 className="text-lg font-bold mb-2 text-gray-900">{selectedPlace.name}</h3>
           <button
             onClick={() => setSelectedPlace(null)}
-            className="absolute top-2 right-2 text-xl cursor-pointer"
+            className="absolute top-2 right-2 text-xl cursor-pointer text-gray-600 hover:text-gray-900"
+            aria-label="Close place details"
           >
             ×
           </button>
