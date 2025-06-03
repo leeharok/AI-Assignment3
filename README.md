@@ -1,27 +1,33 @@
 # Murmur
 
-A location-based social platform where users can share their thoughts and connect with others.
+Murmur is a location-based social platform where users can leave thoughts, discover nearby messages, and connect anonymously through a shared map interface.  
+Whether you're passing by or staying in one place, Murmur lets you tap into local voices in real time.
 
 ## Features
 
-- Interactive map interface
-- Location-based messaging
-- Anonymous wall messages
-- Real-time updates
+- Interactive map interface for exploring posts around you  
+- Location-based messaging tied to real-world places  
+- Anonymous wall messages for open expression  
+- Real-time updates for a dynamic social feed  
+
+## Live Demo
+
+Visit the live version here:  
+https://murmur-833l1za2v-harok-lees-projects.vercel.app
 
 ## Tech Stack
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Supabase
-- MapLibre GL JS
+- Next.js  
+- TypeScript  
+- Tailwind CSS  
+- Supabase  
+- MapLibre GL JS  
 
 ## Getting Started
 
 1. Clone the repository
 ```bash
-git clone [repository-url]
+git clone https://github.com/leeharok/AI-Assignment3.git
 ```
 
 2. Install dependencies
@@ -34,33 +40,29 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open http://localhost:3000 in your browser
 
 ## Environment Variables
 
 Create a `.env.local` file in the root directory with the following variables:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url  
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about Next.js, check out the following:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js documentation: https://nextjs.org/docs  
+- Interactive Next.js tutorial: https://nextjs.org/learn  
+- GitHub repository: https://github.com/vercel/next.js  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+The easiest way to deploy your Next.js app is using Vercel:  
+https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## 배포 URL
-- Production: https://murmur-a7gi0wn9e-harok-lees-projects.vercel.app
+You can also refer to the official deployment guide:  
+https://nextjs.org/docs/app/building-your-application/deploying
