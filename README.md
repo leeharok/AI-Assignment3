@@ -13,7 +13,7 @@ Whether you're passing by or staying in one place, Murmur lets you tap into loca
 ## Live Demo
 
 Visit the live version here:  
-https://murmur-a9y7pd67a-harok-lees-projects.vercel.app
+https://murmur-am6kk2bso-harok-lees-projects.vercel.app
 
 ## Tech Stack
 
