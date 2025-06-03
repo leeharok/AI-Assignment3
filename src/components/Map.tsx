@@ -31,6 +31,7 @@ function getFootprintStyle(timestamp: number) {
   const age = Date.now() - timestamp;
   const maxAge = 24 * 60 * 60 * 1000; // 24시간
   const opacity = Math.max(0, 1 - age / maxAge);
+  if (opacity <= 0) return null; // 너무 희미하면 마커 생략
   return {
     size: 10 + opacity * 10,
     color: `rgba(0, 123, 255, ${opacity})`
@@ -43,7 +44,7 @@ export default function Map() {
   const [viewState, setViewState] = useState({
     longitude: 126.9780,
     latitude: 37.5665,
-    zoom: 13
+    zoom: 15
   });
   const [path, setPath] = useState<Location[]>([]);
   const [murmurDensities, setMurmurDensities] = useState<MurmurDensity[]>([]);
@@ -51,13 +52,11 @@ export default function Map() {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [nickname, setNickname] = useState<string>('');
 
-  // 닉네임 불러오기
   useEffect(() => {
     const saved = localStorage.getItem('user_nickname');
     if (saved) setNickname(saved);
   }, []);
 
-  // 자정에 경로 리셋
   useEffect(() => {
     const now = new Date();
     const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
@@ -69,19 +68,19 @@ export default function Map() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 위치 주기적 기록
   useEffect(() => {
     if (!isTracking) return;
 
     const trackLocation = async () => {
-      if (!("geolocation" in navigator)) return;
+      if (!navigator.geolocation) return;
 
       navigator.geolocation.getCurrentPosition(
         async (pos) => {
           const { longitude, latitude } = pos.coords;
-          setUserLocation([longitude, latitude]);
           const timestamp = Date.now();
           const geohash = createGeohash(latitude, longitude);
+
+          setUserLocation([longitude, latitude]);
 
           try {
             await saveLocation({
@@ -104,11 +103,11 @@ export default function Map() {
 
             setPath(prev => [...prev, { longitude, latitude, timestamp }]);
           } catch (err) {
-            console.error('위치 저장 실패:', err);
+            console.error('Failed to save location:', err);
           }
         },
         (err) => {
-          console.error('위치 추적 실패:', err);
+          console.error('Geolocation error:', err);
         }
       );
     };
@@ -118,23 +117,22 @@ export default function Map() {
     return () => clearInterval(intervalId);
   }, [isTracking]);
 
-  // 버튼 클릭 → 위치 추적 시작
   const handleImprint = () => {
-    if (!("geolocation" in navigator)) {
-      setLocationError("이 브라우저는 위치 정보를 지원하지 않아요.");
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const { longitude, latitude } = pos.coords;
+        const timestamp = Date.now();
+        const geohash = createGeohash(latitude, longitude);
+
         setUserLocation([longitude, latitude]);
         setViewState({ longitude, latitude, zoom: 15 });
         setLocationError(null);
         setIsTracking(true);
-
-        const timestamp = Date.now();
-        const geohash = createGeohash(latitude, longitude);
 
         try {
           await saveLocation({
@@ -157,11 +155,11 @@ export default function Map() {
 
           setPath([{ longitude, latitude, timestamp }]);
         } catch (err) {
-          console.error('위치 저장 실패:', err);
+          console.error('Failed to save location:', err);
         }
       },
       (err) => {
-        setLocationError("위치 정보를 가져오는 데 실패했어요.");
+        setLocationError("Failed to fetch location.");
       }
     );
   };
@@ -173,10 +171,12 @@ export default function Map() {
         onMove={evt => setViewState(evt.viewState)}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
         style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
-        interactive={false}
+        interactive={true}
       >
         {path.map((point, index) => {
           const style = getFootprintStyle(point.timestamp);
+          if (!style) return null;
+
           return (
             <Marker
               key={index}
