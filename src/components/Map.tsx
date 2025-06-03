@@ -191,7 +191,8 @@ export default function Map() {
                   borderRadius: '50%',
                   backgroundColor: style.color,
                   boxShadow: `0 0 ${style.size}px ${style.color}`,
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  border: '2px solid white'
                 }}
               />
             </Marker>
@@ -211,8 +212,8 @@ export default function Map() {
                   <div className="text-xs text-gray-500">{new Date().toLocaleTimeString()}</div>
                 </div>
               )}
-              <div className="w-8 h-8 bg-blue-600 rounded-full shadow-lg flex items-center justify-center">
-                <div className="w-4 h-4 bg-white rounded-full"></div>
+              <div className="w-10 h-10 bg-blue-600 rounded-full shadow-lg flex items-center justify-center border-2 border-white">
+                <div className="w-5 h-5 bg-white rounded-full"></div>
               </div>
             </div>
           </Marker>
@@ -227,11 +228,14 @@ export default function Map() {
           >
             <div
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '12px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '14px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                border: '2px solid #3B82F6',
+                fontWeight: 'bold',
+                color: '#1E40AF'
               }}
             >
               {density.count} murmurs
