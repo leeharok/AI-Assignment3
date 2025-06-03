@@ -46,15 +46,19 @@ export async function saveLocation(location: Omit<LocationData, 'id' | 'created_
 }
 
 // 특정 geohash의 murmur 밀도 조회
-export async function getMurmurDensity(geohash: string): Promise<number> {
+export async function getMurmurDensity(geohash: string): Promise<MurmurDensity[]> {
   const { data, error } = await supabase
     .from('locations')
-    .select('geohash')
+    .select('geohash, timestamp')
     .eq('geohash', geohash)
     .gte('timestamp', Date.now() - 24 * 60 * 60 * 1000);
 
   if (error) throw error;
-  return data?.length || 0;
+  return data ? [{
+    geohash,
+    count: data.length,
+    timestamp: new Date().toISOString()
+  }] : [];
 }
 
 // 사용자의 오늘 경로 조회
